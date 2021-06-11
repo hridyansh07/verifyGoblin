@@ -1,0 +1,43 @@
+<form #form = "ngForm" (ngSubmit)="onSubmit(form.value)">
+    <div class="form-group">
+        <select class="custom-select" name="selectedLevel" [(ngModel)]="selectedLevel"  (change)="selected()" required>
+          <option *ngFor="let item of data" [ngValue]="item">{{item.name}}</option>
+        </select>
+    </div>
+    <div *ngIf="plant">  
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="Enter Upc value" name="upc" id="UPC" ngModel>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="Enter Farm name" name="farmName" id="farmName" ngModel>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="Enter Farm Information" name="farmInformation" id="farmInformation" ngModel>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control"  placeholder="Enter Latitude value" name="Latitude" id="Latitude" ngModel>
+        </div>
+        <div class="form-group">
+            <input type="text"  class="form-control"  placeholder="Enter Longitude value" name="Longitude" id="Longitude" ngModel>
+        </div>
+    </div>
+    <div *ngIf="harvest">
+        <div class="form-group">
+            <select class="custom-select" name="selectedHarvestItem" [(ngModel)]="selectedHarvestItem"  (change)="selectRaw()" required ngModel>
+              <option *ngFor="let item of PlantedItems" [ngValue]="item">{{item}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Harvest Notes" name="harvestNotes" id="harvestNotes" ngModel>
+        </div>
+    </div>
+    <div *ngIf="process">
+        <div class="form-group">
+            <select class="custom-select" name="selectedProcessItem" [(ngModel)]="selectedProcessItem"  (change)="selectRaw()" required ngModel>
+              <option *ngFor="let item of InspectedItems" [ngValue]="item">{{item}}</option>
+            </select>
+        </div>
+    </div>
+    <button class="btn btn-submit" type="submit"> Submit </button>
+    
+</form>

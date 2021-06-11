@@ -1,0 +1,33 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+    <div class="form-group">
+        <select class="custom-select" name="selectedLevel" [(ngModel)]="selectedLevel"  (change)="selected()" required>
+          <option *ngFor="let item of data" [ngValue]="item" [selected]="item.name == 'Book a Raw Item for Finished Product'">{{item.name}}</option>
+        </select>
+    </div>
+    <div *ngIf="booking">
+        <div class="form-group">
+            <select class="custom-select" name="selectedRaw" [(ngModel)]="rawItemSelected"  (change)="selectedRaw()" required ngModel>
+                <option *ngFor="let item of processedRawItem" [ngValue]="item">{{item}}</option>
+            </select>
+        </div>
+    </div>
+    <div *ngIf="producing">
+        <div class="form-group">
+            <select class="custom-select" name="itemSelected" [(ngModel)]="itemSelected"  (change)="selectedItem()"  required ngModel>
+                <option *ngFor="let item of rawAndFinishedItem"  [ngValue]="item" >{{item}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="text" name="productNotes" id="productNotes" placeholder="Product Notes" ngModel required> 
+        </div>
+        <div class="form-group">
+            <input type="text" name="price" id="price" placeholder="Price Of the Product (In Ether)" ngModel required> 
+        </div>
+    </div>
+    <div *ngIf="packaging">
+        <select class="custom-select" name="finishedItemSelected" [(ngModel)]="finishedItemSelected"  (change)="selectedItem()" required ngModel>
+            <option *ngFor="let item of inspectedItem" [ngValue]="item">{{item}}</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-submit">Submit</button>
+</form>

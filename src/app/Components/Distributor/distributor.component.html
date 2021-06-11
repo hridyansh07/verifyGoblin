@@ -1,0 +1,9 @@
+<div>
+    Set An Item for Sale
+</div>
+<div >
+    <select class="custom-select" name="selectedItem" [(ngModel)]="selectedItem"  (change)="selected()" required>
+        <option *ngFor="let item of forSaleItems" [ngValue]="item">{{item}}</option>
+    </select>
+</div>
+<button type="submit" class="btn btn-submit" (click)="onSubmit()">Submit</button>

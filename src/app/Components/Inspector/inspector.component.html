@@ -1,0 +1,28 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+    <div class="form-group">
+        <select class="custom-select" name="selectedLevel" [(ngModel)]="selectedLevel"  (change)="selected()" required>
+          <option *ngFor="let item of data" [ngValue]="item">{{item.name}}</option>
+        </select>
+    </div>
+    <div *ngIf="inspect" >
+      <div class="form-group">
+          <select class="custom-select" name="selectedInspectedItem" [(ngModel)]="selectedInspectedItem"  (change)="selectRaw()" required ngModel>
+            <option *ngFor="let item of rawItemToBeInspected" [ngValue]="item">{{item}}</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <input class="form-control" name="inspectionNotes" id="inspectionNotes" type="text" placeholder="Inspection Notes" required ngModel>
+      </div>
+    </div>
+    <div *ngIf="audit">
+      <div class="form-group">
+          <select class="custom-select" name="selectedAuditedItem" [(ngModel)]="selectedAuditedItem"  (change)="selectRaw()" required ngModel>
+            <option *ngFor="let item of finishedItemToBeAudited" [ngValue]="item">{{item}}</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <input class="form-control" name="auditNotes" id="auditNotes" type="text" placeholder="Audit Notes" required ngModel>
+      </div>
+    </div>
+    <button class="btn btn-submit" type="submit">Inspect</button>
+</form>
