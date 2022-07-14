@@ -21,6 +21,8 @@ export class AppComponent implements OnInit {
   async Connect()  
   {
      this.connectionSuccesful = await this.connectionServie.walletDetect();
+     if(this.connectionSuccesful)
+      console.log(process.env.TELEGRAM_URL);
   }
 
 }
