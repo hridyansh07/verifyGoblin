@@ -1,6 +1,0 @@
-<div>
-    <select class="custom-select" name="selectedFinished" [(ngModel)]="finishedItemSelected"  (change)="selectedFinished()" required ngModel>
-        <option *ngFor="let item of itemsForSale" [ngValue]="item">{{item}}</option>
-    </select>
-    <button class="btn btn-submit" (click)="onSubmit()">Submit</button>
-</div>

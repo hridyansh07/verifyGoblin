@@ -1,91 +1,26 @@
-import { Component,HostListener,OnDestroy} from '@angular/core';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { AccountModel } from './Models/accountModel';
-import {ConnectionService } from "./Services/connection.service";
-
-declare var window : any;
+import { Component, OnInit } from '@angular/core';
+import { ConnectionService } from './services/connection.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnDestroy  {
-  name = "Testing";
-  title = 'MinorProject';
-  walletDetect : boolean = false;
-  subscription  : Subscription;
-  account : AccountModel;
-  // supplyChain = contract(supplyChainArtifact);
-  
-  constructor(private connectionService : ConnectionService , 
-    private router : Router)
-  {
-    this.subscription = this.connectionService.AccountData.subscribe((data) => {
-      this.account = data;
-    })
-  }
-  
+export class AppComponent implements OnInit {
+  title = 'GoblinTown';
+  connectionSuccesful : boolean = false;
 
-  role : string;
-  newName : string;
-  connectionSuccesful : boolean;
-  balance : string;
-  // constructor(private _ngZone : NgZone)
-  // {}
-  
+  constructor(private connectionServie : ConnectionService )
+  {}
 
-  Connect()  {
-    this.connectionService.attempConnection();
-  };
-
-
-  @HostListener("window:load")
-  async getAccount()
-  {
-    this.connectionSuccesful = await this.connectionService.walletDetect();
-    this.walletDetect = true;    
-    this.change()
+  ngOnInit(): void {
+    this.connectionServie.walletDetect();
   }
 
-  change()
-  {
-    this.router.navigateByUrl(this.account.Role.toLowerCase());
-  }
 
-  ngOnDestroy()
+  async Connect()  
   {
-    this.subscription.unsubscribe();
+     this.connectionSuccesful = await this.connectionServie.walletDetect();
   }
 
 }
-
-// onReady = () => {
-  // Bootstrap the MetaCoin abstraction for Use.
-  // this.supplyChain.setProvider(this.web3.currentProvider);
-
-  // Get the initial account balance so it can be displayed.
-  // this.web3.eth.getAccounts((err, accs) => {
-  //   if (err != null) {
-  //     alert('There was an error fetching your accounts.');
-  //     return;
-  //   }
-
-  //   if (accs.length === 0) {
-  //     alert(
-  //       'Couldn\'t get any accounts! Make sure your Ethereum client is configured correctly.' 
-  //     );
-  //     return;
-  //   }
-  //   console.log(accs);
-  //   this.accounts = accs;
-  //   this.account = this.accounts[0];
-
-  //   // This is run from window:load and ZoneJS is not aware of it we
-  //   // need to use _ngZone.run() so that the UI updates on promise resolution
-  //   this._ngZone.run(() =>
-  //     console.log("In ngZONE")
-  //   );
-  // });
-
