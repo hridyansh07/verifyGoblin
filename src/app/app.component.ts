@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.Connect();
     if(this.connectionSuccesful)
     {
-      var res = await this.getURL();
+      var res = await this.connectionServie.getURL();
       this.responseSubscription =res.subscribe((value) => {
         this.url = value.toString();
         console.log(value);
@@ -39,7 +39,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   async getURL()
   {
-    return await this.connectionServie.getURL();
+   (await this.connectionServie.getURL()).subscribe((value)=>{
+    console.log(value);
+    this.url = value.toString();
+  });
   }
 
 
