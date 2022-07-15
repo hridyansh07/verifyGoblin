@@ -4,6 +4,6 @@
 <br>
 <br>
 <button *ngIf="connectionSuccesful" type="button" class="btn btn-success" (click)="getURL()">Get URL</button>
-<a href=`{{url}}`>JOIN NOW</a>
+<a *ngIf="connectionSuccesful" href=`{{url}}`>JOIN NOW</a>
 <br>
 <router-outlet></router-outlet>

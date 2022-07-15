@@ -96,7 +96,7 @@ export class ConnectionService
         var balance = await this.getBalance();
         if(balance != 0)
         {
-            return await this.httpClient.get("https://verifygoblin-git-main-hridyansh07.vercel.app/api/getURL.ts");
+            return await this.httpClient.get("./api/getURL.ts");
         }
         else 
         {
