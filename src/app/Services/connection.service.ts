@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import Web3 from "web3";
 import goblinTownArtifact from "../../assets/artifacts/goblinTown.json";
@@ -16,6 +17,7 @@ export class ConnectionService
     accounts: any;
     account: any;
 
+    constructor(private httpClient : HttpClient){}
 
 
     async walletDetect() {
@@ -77,13 +79,28 @@ export class ConnectionService
 
     async getBalance()
     {
-        try{
+        try
+        {
             let res = await this.contract.methods.balanceOf(this.account).call({from : this.account});
             console.log(res);
         }
         catch(err)
         {
             console.log(err);
+            return 0;
+        }
+    }
+
+    async getURL()
+    {
+        var balance = await this.getBalance();
+        if(balance != 0)
+        {
+            return await this.httpClient.get("https://verifygoblin-git-main-hridyansh07.vercel.app/api/getURL.ts");
+        }
+        else 
+        {
+            throw "No Balance";
         }
     }
 

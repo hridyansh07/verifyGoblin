@@ -1,7 +1,9 @@
-<button type="button" class="btn btn-danger" (click)="Connect()">Connect</button>
+<button *ngIf="!connectionSuccesful" type="button" class="btn btn-danger" (click)="Connect()">Connect</button>
 <br>
 <div *ngIf="connectionSuccesful" >Connection Succesful</div>
 <br>
 <br>
+<button *ngIf="connectionSuccesful" type="button" class="btn btn-success" (click)="getURL()">Get URL</button>
+<a href=`{{url}}`>JOIN NOW</a>
 <br>
 <router-outlet></router-outlet>

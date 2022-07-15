@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ConnectionService } from './Services/connection.service';
 
 @Component({
@@ -6,15 +7,26 @@ import { ConnectionService } from './Services/connection.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'GoblinTown';
   connectionSuccesful : boolean = false;
+  url : string;
+  responseSubscription : Subscription;
 
   constructor(private connectionServie : ConnectionService )
   {}
 
-  ngOnInit(): void {
-    this.connectionServie.walletDetect();
+  async ngOnInit() {
+    this.Connect();
+    if(this.connectionSuccesful)
+    {
+      var res = await this.getURL();
+      this.responseSubscription =res.subscribe((value) => {
+        this.url = value.toString();
+        console.log(value);
+      })
+    }
+    
   }
 
 
@@ -23,6 +35,17 @@ export class AppComponent implements OnInit {
      this.connectionSuccesful = await this.connectionServie.walletDetect();
      if(this.connectionSuccesful)
       console.log(process.env.TELEGRAM_URL);
+  }
+
+  async getURL()
+  {
+    return await this.connectionServie.getURL();
+  }
+
+
+  ngOnDestroy()
+  {
+    this.responseSubscription.unsubscribe();
   }
 
 }
