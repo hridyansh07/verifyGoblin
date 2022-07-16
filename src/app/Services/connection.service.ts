@@ -34,7 +34,6 @@ export class ConnectionService
         this.contract = await this.loadContract();
         this.accounts = await this.getAccounts()
         this.account = this.accounts[0];
-        await this.getBalance();
         // console.log(this.account);
         // this.updateData(this.account , this.balance);
         console.log(this.contract);
@@ -84,6 +83,7 @@ export class ConnectionService
         {
             let res = await this.contract.methods.balanceOf(this.account).call({from : this.account});
             console.log(res);
+            return res;
         }
         catch(err)
         {

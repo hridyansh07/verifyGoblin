@@ -2,7 +2,7 @@
 <button *ngIf="!connectionSuccesful" type="button" class="btn btn-danger" (click)="Connect()">Connect</button>
 <br>
 </div>
-<div *ngIf="connectionSuccesful" class="card" style="width: 18rem;">
+<div *ngIf="balance != 0" class="card" style="width: 18rem;">
     <img src="..." class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">Goblin {{tokenId}}</h5>

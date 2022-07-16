@@ -12,6 +12,7 @@ export class AppComponent implements OnInit, OnDestroy {
   connectionSuccesful : boolean = false;
   url : string;
   responseSubscription : Subscription;
+  balance : any = 0;
   tokenId : any;
   image : any;
 
@@ -35,8 +36,13 @@ export class AppComponent implements OnInit, OnDestroy {
   async Connect()  
   {
      this.connectionSuccesful = await this.connectionServie.walletDetect();
-     this.getURL();
-     this.getToken();
+     this.balance = this.connectionServie.getBalance();
+     console.log(this.balance);
+     if(this.balance != 0)
+     {
+        this.getURL();
+        this.getToken();
+     }  
   }
 
   async getURL()
