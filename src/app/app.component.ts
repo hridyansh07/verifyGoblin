@@ -12,6 +12,8 @@ export class AppComponent implements OnInit, OnDestroy {
   connectionSuccesful : boolean = false;
   url : string;
   responseSubscription : Subscription;
+  tokenId : string;
+
 
   constructor(private connectionServie : ConnectionService )
   {}
@@ -33,8 +35,8 @@ export class AppComponent implements OnInit, OnDestroy {
   async Connect()  
   {
      this.connectionSuccesful = await this.connectionServie.walletDetect();
-     if(this.connectionSuccesful)
-      console.log(process.env.TELEGRAM_URL);
+     this.getURL();
+     this.getToken();
   }
 
   async getURL()
@@ -43,6 +45,14 @@ export class AppComponent implements OnInit, OnDestroy {
     console.log(value);
     this.url = value.toString();
   });
+  }
+
+  async getToken()
+  {
+    (await this.connectionServie.getTokenId()).subscribe((value) => {
+      let json=JSON.parse(value.toString());
+      this.tokenId = json.assets.token_id;
+    });
   }
 
 

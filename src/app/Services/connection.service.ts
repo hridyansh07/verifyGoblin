@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import Web3 from "web3";
 import goblinTownArtifact from "../../assets/artifacts/goblinTown.json";
@@ -8,14 +8,15 @@ declare var window : any;
 @Injectable({providedIn : "root"})
 export class ConnectionService 
 {
-
     web3 : any;
     enable : any;
     goblinContractAddress : any = "0xbCe3781ae7Ca1a5e050Bd9C4c77369867eBc307e";
+    goblinSlug : any = "goblintownwtf";
     networkId : any;
     contract : any;
     accounts: any;
     account: any;
+    address : string;
 
     constructor(private httpClient : HttpClient){}
 
@@ -102,6 +103,21 @@ export class ConnectionService
         {
             throw "No Balance";
         }
+    }
+
+
+    async getTokenId()
+    {
+        let API_KEY;
+        (await this.httpClient.get("./api/getKey.ts")).subscribe((value) => {
+            API_KEY = value.toString();
+        })
+        let header = new HttpHeaders();
+        header.append("X-API-KEY" , API_KEY);
+        let queryParams = new HttpParams();
+        queryParams.append("owner" , this.account);
+        queryParams.append("collection_slug" , this.goblinSlug);
+        return await this.httpClient.get("https://api.opensea.io/api/v1/assets", {headers : header, params : queryParams});
     }
 
 

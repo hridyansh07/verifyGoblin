@@ -1,9 +1,12 @@
+<div *ngIf="!connectionSuccesful">
 <button *ngIf="!connectionSuccesful" type="button" class="btn btn-danger" (click)="Connect()">Connect</button>
 <br>
-<div *ngIf="connectionSuccesful" >Connection Succesful</div>
-<br>
-<br>
-<button *ngIf="connectionSuccesful" type="button" class="btn btn-success" (click)="getURL()">Get URL</button>
-<a *ngIf="connectionSuccesful" href="{{url}}" target="_blank">JOIN NOW</a>
-<br>
-<router-outlet></router-outlet>
+</div>
+<div *ngIf="connectionSuccesful" class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Goblin {{tokenId}}</h5>
+      <p class="card-text">You are invited to join the Goblin BLIVers community with</p>
+      <a href="{{url}}" class="btn btn-primary" target="_blank">Go somewhere</a>
+    </div>
+</div>
