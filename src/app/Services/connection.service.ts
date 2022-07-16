@@ -119,8 +119,18 @@ export class ConnectionService
         let queryParams = new HttpParams();
         queryParams.append("owner" , this.account);
         queryParams.append("collection_slug" , "fang-jobs");
-        (this.httpClient.get("https://api.opensea.io/api/v1/assets", {headers : header, params : queryParams})).subscribe((value) => {console.log(value); value = value});
-        return value;
+        (this.httpClient.get("https://api.opensea.io/api/v1/assets", {headers : header, params : queryParams})).subscribe((value) => {
+            console.log(value);
+            for(const asset in value["assets"])
+            {
+                if(asset["collection"].slug == this.goblinSlug)
+                {
+                    console.log(asset);
+                }
+            }
+            value = value
+            });
+        
     }
 
 

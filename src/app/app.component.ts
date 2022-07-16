@@ -55,7 +55,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   async getToken()
   {
-    await this.connectionServie.getTokenId();
+    let assets = await this.connectionServie.getTokenId();
+    for(const asset in assets)
+    {
+      if(assets.hasOwnPro)
+    }
   }
 
 
