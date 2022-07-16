@@ -36,7 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
   async Connect()  
   {
      this.connectionSuccesful = await this.connectionServie.walletDetect();
-     this.balance = this.connectionServie.getBalance();
+     this.balance = await this.connectionServie.getBalance();
      console.log(this.balance);
      if(this.balance != 0)
      {
