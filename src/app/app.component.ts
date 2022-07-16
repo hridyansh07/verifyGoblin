@@ -38,11 +38,11 @@ export class AppComponent implements OnInit, OnDestroy {
      this.connectionSuccesful = await this.connectionServie.walletDetect();
      this.balance = await this.connectionServie.getBalance();
      console.log(this.balance);
-     if(this.balance != 0)
-     {
+    //  if(this.balance != 0)
+    //  {
         this.getURL();
         this.getToken();
-     }  
+    //  }  
   }
 
   async getURL()
