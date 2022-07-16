@@ -13,23 +13,14 @@ export class AppComponent implements OnInit, OnDestroy {
   url : string;
   responseSubscription : Subscription;
   balance : any = 0;
-  tokenId : any;
+  tokenId : any = null;
   image : any;
 
   constructor(private connectionServie : ConnectionService )
   {}
 
   async ngOnInit() {
-    this.Connect();
-    if(this.connectionSuccesful)
-    {
-      var res = await this.connectionServie.getURL();
-      this.responseSubscription =res.subscribe((value) => {
-        this.url = value.toString();
-        console.log(value);
-      })
-    }
-    
+    this.Connect(); 
   }
 
 
@@ -38,11 +29,11 @@ export class AppComponent implements OnInit, OnDestroy {
      this.connectionSuccesful = await this.connectionServie.walletDetect();
      this.balance = await this.connectionServie.getBalance();
      console.log(this.balance);
-    //  if(this.balance != 0)
-    //  {
+     if(this.balance != 0)
+     {
         this.getURL();
         this.getToken();
-    //  }  
+     }  
   }
 
   async getURL()
@@ -55,7 +46,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   async getToken()
   {
-    await this.connectionServie.getTokenIdFromContract();
+    let tokenId =await this.connectionServie.getTokenIdFromContract();
+    if(tokenId == null)
+    {
+      this.tokenId = null;
+    }
+    else{
+      this.tokenId = tokenId;
+    }
   }
 
 
@@ -63,5 +61,4 @@ export class AppComponent implements OnInit, OnDestroy {
   {
     this.responseSubscription.unsubscribe();
   }
-
 }

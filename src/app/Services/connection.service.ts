@@ -108,12 +108,13 @@ export class ConnectionService
     async getTokenIdFromContract()
     {
         try{
-           const id = this.contract.methods.tokenOfOwnerByIndex(this.account , 0).call({from : this.account});
+           const id = await this.contract.methods.tokenOfOwnerByIndex(this.account , 0).call({from : this.account});
            console.log(id); 
            return id;
         }
         catch(error){
             console.log(error);
+            return null;
         }
     }
 
