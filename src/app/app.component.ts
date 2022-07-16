@@ -12,8 +12,8 @@ export class AppComponent implements OnInit, OnDestroy {
   connectionSuccesful : boolean = false;
   url : string;
   responseSubscription : Subscription;
-  tokenId : string;
-
+  tokenId : any;
+  image : any;
 
   constructor(private connectionServie : ConnectionService )
   {}
@@ -52,7 +52,9 @@ export class AppComponent implements OnInit, OnDestroy {
     (await this.connectionServie.getTokenId()).subscribe((value) => {
       let json=JSON.parse(value.toString());
       this.tokenId = json.assets.token_id;
+      this.image = json.assets.image_thumbnail_url;
       console.log(this.tokenId);
+      console.log(this.image);
     });
   }
 
