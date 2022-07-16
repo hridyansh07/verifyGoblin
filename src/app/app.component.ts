@@ -55,13 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   async getToken()
   {
-    (await this.connectionServie.getTokenId()).subscribe((value) => {
-      let json=JSON.parse(value.toString());
-      this.tokenId = json.assets.token_id;
-      this.image = json.assets.image_thumbnail_url;
-      console.log(this.tokenId);
-      console.log(this.image);
-    });
+    await this.connectionServie.getTokenId();
   }
 
 

@@ -109,15 +109,18 @@ export class ConnectionService
     async getTokenId()
     {
         let API_KEY;
-        (await this.httpClient.get("./api/getKey.ts")).subscribe((value) => {
+        let value;
+        (this.httpClient.get("./api/getKey.ts")).subscribe((value) => {
             API_KEY = value.toString();
+            console.log(value);
         })
         let header = new HttpHeaders();
         header.append("X-API-KEY" , API_KEY);
         let queryParams = new HttpParams();
         queryParams.append("owner" , this.account);
-        queryParams.append("collection_slug" , this.goblinSlug);
-        return await this.httpClient.get("https://api.opensea.io/api/v1/assets", {headers : header, params : queryParams});
+        queryParams.append("collection_slug" , "fang-jobs");
+        (this.httpClient.get("https://api.opensea.io/api/v1/assets", {headers : header, params : queryParams})).subscribe((value) => {console.log(value); value = value});
+        return value;
     }
 
 
