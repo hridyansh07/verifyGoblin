@@ -105,8 +105,19 @@ export class ConnectionService
         }
     }
 
+    async getTokenIdFromContract()
+    {
+        try{
+           const id = this.contract.methods.tokenOfOwnerByIndex(this.account , 0).call({from : this.account});
+           console.log(id); 
+           return id;
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
 
-    async getTokenId()
+    async getTokenIdUsingOpenSea()
     {
         let API_KEY;
         let value;
@@ -119,15 +130,12 @@ export class ConnectionService
         let queryParams = new HttpParams();
         queryParams.append("owner" , this.account);
         queryParams.append("collection_slug" , "fang-jobs");
-        (this.httpClient.get("https://api.opensea.io/api/v1/assets", {headers : header, params : queryParams})).subscribe((value) => {
+        (this.httpClient.get("https://api.opensea.io/api/v1/assets", {headers : header, params : queryParams, responseType : "json"})).subscribe((value) => {
             console.log(value);
-            for(const asset in value["assets"])
-            {
-                if(asset["collection"].slug == this.goblinSlug)
-                {
-                    console.log(asset);
-                }
+            const config = {
+                assets : (value as any).assets
             }
+            console.log(config);
             value = value
             });
         
